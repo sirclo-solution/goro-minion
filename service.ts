@@ -6,7 +6,7 @@ async function handler(req: Request, connInfo: ConnInfo): Promise<Response> {
 
     const remoteIP = connInfo.remoteAddr.transport === 'tcp' ? connInfo.remoteAddr.hostname : '';
     const logLine = `${remoteIP} ${req.method} ${req.headers.get('Host')}`;
-    console.log(logLine);
+    // console.log(logLine);
     if (req.method !== 'CONNECT') {
         const res = fetch(req)
         return res
@@ -55,7 +55,7 @@ async function handler(req: Request, connInfo: ConnInfo): Promise<Response> {
                 } finally {
                     socket.close();
                     conn.close();
-                    console.log(`${logLine}: ${nbytes}`);
+                    // console.log(`${logLine}: ${nbytes}`);
                 }
             })
             .catch(console.error);
