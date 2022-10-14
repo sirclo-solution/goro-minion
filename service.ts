@@ -1,7 +1,15 @@
 import { serve, ConnInfo } from "./deps.ts";
 import { handler as proxyHandler } from "./handlers/proxy.ts";
+import { handler as apiHandler } from "./handlers/api.ts";
+
+let ztIpAddress = '';
 
 async function handler(req: Request, connInfo: ConnInfo): Promise<Response> {
+    const { hostname } = new URL(req.url);
+    if (hostname === ztIpAddress) {
+        return apiHandler(req, connInfo);
+    }
+
     return proxyHandler(req, connInfo);
 }
 
@@ -17,9 +25,9 @@ function sleep(seconds: number){
 
 async function run() {
     for (let i = 0; i < 6; i++) {
-        const ztIpAddress = getZtIpAddress();
+        ztIpAddress = getZtIpAddress();
         if (ztIpAddress) {
-            await serve(handler, { hostname: ztIpAddress, port: 31281 });
+            await serve(handler, { hostname: ztIpAddress, port: 31280 });
             return
         }
         console.log('Waiting for ZeroTier goro network...')
