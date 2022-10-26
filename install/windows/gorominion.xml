@@ -1,0 +1,10 @@
+<service>
+
+  <!-- ID of the service. It should be unique across the Windows system-->
+  <id>gorominion</id>
+
+  <!-- Path to the executable, which should be started -->
+  <!-- CAUTION: Don't put arguments here. Use <arguments> instead. -->
+  <executable>%BASE%\deno.exe</executable>
+  <arguments>run --unstable --allow-net --allow-sys=networkInterfaces --reload=https://deno.land/x/goro_minion https://deno.land/x/goro_minion/service.ts</arguments>
+</service>
