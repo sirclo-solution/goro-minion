@@ -14,6 +14,7 @@ export async function handler(req: Request): Promise<Response> {
             version: Deno.version,
             build: Deno.build,
             uptimeSeconds: Math.round((Number(new Date()) - performance.timeOrigin) / 1000),
+            importUrl: import.meta.url,
         }), 
         { headers: {'content-type': 'application/json'} },
         );
